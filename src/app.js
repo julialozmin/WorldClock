@@ -1,28 +1,14 @@
-function updateTime() {
-  let losAngelesElement = document.querySelector("#los-angeles");
-  let losAngelesDateElement = losAngelesElement.querySelector(".date");
-  let losAngelesTimeElement = losAngelesElement.querySelector(".time");
-  let lostAngelesTime = moment().tz("America/Los_Angeles");
-  losAngelesDateElement.innerHTML = lostAngelesTime.format("MMMM Do YYYY");
-  losAngelesTimeElement.innerHTML = lostAngelesTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  );
-  let sydneyElement = document.querySelector("#sydney");
-  let sydneyDateElement = sydneyElement.querySelector(".date");
-  let sydneyTimeElement = sydneyElement.querySelector(".time");
-  let sydneyTime = moment().tz("Australia/Sydney");
-  sydneyDateElement.innerHTML = sydneyTime.format("MMMM Do YYYY");
-  sydneyTimeElement.innerHTML = sydneyTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  );
-  let tokyoElement = document.querySelector("#tokyo");
-  let tokyoDateElement = tokyoElement.querySelector(".date");
-  let tokyoTimeElement = tokyoElement.querySelector(".time");
-  let tokyoTime = moment().tz("Asia/Tokyo");
-  tokyoDateElement.innerHTML = tokyoTime.format("MMMM Do YYYY");
-  tokyoTimeElement.innerHTML = tokyoTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  );
+function updateTime(cityid, timezone) {
+  let cityElement = document.querySelector(cityid);
+  let cityDateElement = cityElement.querySelector(".date");
+  let cityTimeElement = cityElement.querySelector(".time");
+  let cityTime = moment().tz(timezone);
+  cityDateElement.innerHTML = cityTime.format("MMMM Do YYYY");
+  cityTimeElement.innerHTML = cityTime.format("hh:mm:ss [<small>]A[</small>]");
 }
 
-setInterval(updateTime)(1, 1000);
+setInterval(function () {
+  updateTime("#los-angeles", "America/Los_Angeles");
+  updateTime("#sydney", "Australia/Sydney");
+  updateTime("#tokyo", "Asia/Tokyo");
+})(1, 1000);
