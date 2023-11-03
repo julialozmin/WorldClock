@@ -16,26 +16,30 @@ function updateAll() {
 setInterval(updateAll, 1000);
 
 function showSelectedCity(event) {
-  let cityTimezone = event.target.value;
-  if (cityTimezone === "current") {
-    cityTimezone = moment.tz.guess();
-  }
-  let cityName = cityTimezone.replace("_", " ").split(`/`)[1];
-  let cityDisplay = document.querySelector("#cities");
-  let selectedCityDate = moment().tz(cityTimezone).format("MMMM Do YYYY");
-  let selectedCityTime = moment()
-    .tz(cityTimezone)
-    .format("hh:mm:ss [<small>]A[</small>]");
+  function updateSelected() {
+    let cityTimezone = event.target.value;
+    if (cityTimezone === "current") {
+      cityTimezone = moment.tz.guess();
+    }
+    let cityName = cityTimezone.replace("_", " ").split(`/`)[1];
+    let cityDisplay = document.querySelector("#cities");
+    let selectedCityDate = moment().tz(cityTimezone).format("MMMM Do YYYY");
+    let selectedCityTime = moment()
+      .tz(cityTimezone)
+      .format("hh:mm:ss [<small>]A[</small>]");
 
-  cityDisplay.innerHTML = `<div class="city"><div>
+    cityDisplay.innerHTML = `<div class="city"><div>
             <h2>${cityName}</h2>
             <div class="date">${selectedCityDate}</div>
           </div>
           <div class="time">${selectedCityTime}</div>
         </div>
+         <a href="">All cities</a>
   `;
+  }
+  setInterval(updateSelected, 1000);
 }
+
 let citiesSelect = document.querySelector("#cities-dropdown");
 
 citiesSelect.addEventListener("change", showSelectedCity);
-setInterval(showSelectedCity, 1000);
