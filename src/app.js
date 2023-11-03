@@ -17,6 +17,9 @@ setInterval(updateAll, 1000);
 
 function showSelectedCity(event) {
   let cityTimezone = event.target.value;
+  if (cityTimezone === "current") {
+    cityTimezone = moment.tz.guess();
+  }
   let cityName = cityTimezone.replace("_", " ").split(`/`)[1];
   let cityDisplay = document.querySelector("#cities");
   let selectedCityDate = moment().tz(cityTimezone).format("MMMM Do YYYY");
@@ -35,3 +38,4 @@ function showSelectedCity(event) {
 let citiesSelect = document.querySelector("#cities-dropdown");
 
 citiesSelect.addEventListener("change", showSelectedCity);
+setInterval(showSelectedCity, 1000);
